@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "RNLearnJSM",
-    "slug": "rnlearnjsm",
-    "scheme": "rnlearnjsm",
+    "name": "VidUpyr",
+    "slug": "vidupyr",
+    "scheme": "vidupyr",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
