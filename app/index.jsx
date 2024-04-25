@@ -1,19 +1,24 @@
 import { StatusBar } from "expo-status-bar";
+import { Redirect, router } from "expo-router";
 import { ScrollView, Text, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 const Welcome = () => {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && isLogged) return <Redirect href="/home" />;
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="w-full justify-center items-center h-full px-8">
+        <View className="w-full justify-center items-center min-h-[85vh] px-8">
           <Image
             source={images.logo}
-            className="w-[160px] h-[60px]"
+            className="w-[160px] h-[120px]"
             resizeMode="contain"
           />
           <Image
@@ -23,7 +28,7 @@ const Welcome = () => {
           />
 
           <View className="relative mt-5">
-            <Text className="text-[24px] text-white font-bold text-center">
+            <Text className="text-[28px] text-white font-bold text-center">
               Discover Endless Possibilities with{" "}
               <Text className="text-secondary-200">VidUpyr</Text>
             </Text>
@@ -35,7 +40,7 @@ const Welcome = () => {
             />
           </View>
 
-          <Text className="text-xs font-pregular text-gray-100 mt-6 text-center">
+          <Text className="text-sm font-pregular text-gray-100 mt-6 text-center">
             Where creativity meets innovation: embark on a journey of limitless
             exploration with VidUpyr
           </Text>
