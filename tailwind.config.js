@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./containers/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -17,6 +21,10 @@ module.exports = {
         },
         gray: {
           100: "#CDCDE0",
+        },
+        white: {
+          DEFAULT: "#FFF",
+          100: "#F7F7F7",
         },
       },
       fontFamily: {

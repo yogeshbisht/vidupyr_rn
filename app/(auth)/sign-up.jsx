@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Link, router } from "expo-router";
-import { View, Text, ScrollView, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import { images } from "../../constants";
-import { CustomButton, FormField } from "../../components";
 import { createUser } from "../../lib/appwrite";
+import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import { AuthContainer } from "../../containers";
 
 const SignUp = () => {
   const { setUser, setIsLogged } = useGlobalContext();
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -37,62 +39,43 @@ const SignUp = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <ScrollView>
-        <View
-          className="w-full flex items-center h-full px-8 pt-8"
-          style={{ minHeight: Dimensions.get("window").height - 100 }}
-        >
-          <Image
-            source={images.logo}
-            resizeMode="contain"
-            className="w-[200px] h-[60px]"
-          />
+    <AuthContainer
+      title="Create a New Account"
+      link={{
+        url: "/sign-in",
+        name: "Sign in",
+        message: "Already have an account?",
+      }}
+    >
+      <FormField
+        title="Username"
+        value={form.username}
+        handleChangeText={(e) => setForm({ ...form, username: e })}
+        otherStyles="mt-8"
+      />
 
-          <Text className="text-2xl font-semibold text-white mt-10">
-            Register to VidUpyr
-          </Text>
+      <FormField
+        title="Email"
+        value={form.email}
+        handleChangeText={(e) => setForm({ ...form, email: e })}
+        otherStyles="mt-5"
+        keyboardType="email-address"
+      />
 
-          <FormField
-            title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
-            otherStyles="mt-8"
-          />
+      <FormField
+        title="Password"
+        value={form.password}
+        handleChangeText={(e) => setForm({ ...form, password: e })}
+        otherStyles="mt-5"
+      />
 
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-5"
-            keyboardType="email-address"
-          />
-
-          <FormField
-            title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-5"
-          />
-
-          <CustomButton
-            title="Sign Up"
-            handlePress={submit}
-            containerStyles="w-full mt-10"
-            isLoading={isSubmitting}
-          />
-
-          <View className="flex justify-center pt-8 flex-row gap-2">
-            <Text className="text-gray-100 font-pregular">
-              Already have an account?
-            </Text>
-            <Link href="/sign-in" className="font-psemibold text-secondary">
-              Sign In
-            </Link>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <CustomButton
+        title="Sign Up"
+        handlePress={submit}
+        containerStyles="mt-10 w-full"
+        isLoading={isSubmitting}
+      />
+    </AuthContainer>
   );
 };
 
